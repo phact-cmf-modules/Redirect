@@ -43,4 +43,9 @@ class RedirectModule extends Module
             }
         }
     }
+
+    public static function getVerboseName()
+    {
+        return "Перенаправления";
+    }
 }
