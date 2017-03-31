@@ -29,13 +29,12 @@ class RedirectModule extends Module
         parent::onApplicationRun();
         if (Phact::app()->getIsWebMode()) {
             $request = Phact::app()->request;
-            $path = urldecode($request->getPath());
+            $path = urldecode($request->getUrl());
 
             $pathTrimmed = rtrim($path, '/');
-            $pathSlashed = $pathTrimmed . '/';
 
             $redirect = Redirect::objects()->filter([
-                Q::orQ(['from' => $pathTrimmed], ['from' => $pathSlashed])
+                'from' => $path
             ])->limit(1)->get();
 
             if ($redirect && $redirect->to) {
